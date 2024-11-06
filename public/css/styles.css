@@ -18,3 +18,25 @@ header a{
   text-decoration: none;
   color: black;
 }
+
+nav { 
+  display: flex;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+
+#hero{
+  display: grid;
+  grid-template-columns: 50px 0.8fr 1fr 100px;
+}
+
+#hero-box{
+  z-index: -1;
+}
+
+h1{
+  padding: 10px 0;
+
+}
