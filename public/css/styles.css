@@ -4,3 +4,17 @@
 *:after {
   box-sizing: border-box;
 }
+
+#upgrades div img{
+  background-color: blue;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+}
+
+header a{
+  text-decoration: none;
+  color: black;
+}
