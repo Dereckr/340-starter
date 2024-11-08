@@ -14,11 +14,6 @@ h1, h2, h3 {
   font-family: Staatliches, Roboto, sans-serif;
 }
 
-#wrapper{
-  width: 80%;
-
-  border-radius: 10px;
-}
 
 header{
   display: flex;
@@ -41,18 +36,24 @@ nav {
 
 #hero{
   display: grid;
-  grid-template-columns: 50px 0.8fr 1fr 100px;
+  grid-template-columns: 1fr;
+  max-width: 100vh;
 }
+
 
 #hero-box{
   z-index: -1;
-  grid-column: 2/4;
+  grid-column: 1/2;
   grid-row: 1/2;
   padding-left: 50px;
 }
 
+#hero-box img{
+  max-width: 400px;
+}
+
 #hero-msg{
-  grid-column: 2/3;
+  grid-column: 1/2;
   grid-row: 1/2;
   background-color: rgba(255, 255, 255, 0.5);
   max-width: 200px;
@@ -104,9 +105,14 @@ h1{
 
 #upgrades div{
   justify-self: center;
+  justify-content: center;
   display: grid;
   grid-template-rows: 1fr 0.2fr;
   margin-bottom: 20px ;
+  border:3px solid black;
+  background-color: #ECEEF0;
+  width: 150px;
+  height: auto;
 }
 
 
@@ -116,10 +122,37 @@ h1{
 
 @media screen and (min-width: 700px) {
 
+  #hero{
+    grid-template-columns: 50px 0.8fr 1fr 100px;
+  }
+
+  #hero-box{
+  grid-column: 2/4;
+  grid-row: 1/2;
+  padding-left: 50px;
+  }
+
+  #hero-box img{
+    max-width: 100vw;
+  }
+
+
+
+  #hero-msg{
+  grid-column: 2/3;
+  grid-row: 1/2;
+  }
+  
   #bottom{
-   
     grid-template-columns: 1fr 1fr 2fr;
   }
+
+  #wrapper{
+    width: 90%;
+  
+    border-radius: 10px;
+  }
+  
 
 
 }
