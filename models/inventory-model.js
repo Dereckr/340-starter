@@ -21,6 +21,7 @@ async function getInventoryByClasifficationId(classification_id) {
       WHERE i.classification_id = $1`,
       [classification_id]
     );
+
     return data.rows;
   } catch (error) {
     console.error("getclassificationsbyid error " + error);
@@ -36,7 +37,8 @@ async function getCarById(inv_id) {
       WHERE i.inv_id = $1`,
       [inv_id]
     );
-    return data.rows[0];
+    let newData = data.rows[0];
+    return newData;
   } catch (error) {
     console.error("getcarbyid error " + error);
   }

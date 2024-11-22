@@ -81,7 +81,7 @@ Util.buildClassificationGrid = async function (data) {
  ************************** */
 Util.buildCarSpecs = async function (data) {
   let carSpecs;
-  if (data.length > 0) {
+  if (data != undefined) {
     carSpecs = '<section id="carSpec">';
     carSpecs +=
       '<img src="' +
@@ -97,9 +97,10 @@ Util.buildCarSpecs = async function (data) {
     carSpecs += "<h2> Price: ";
     carSpecs +=
       "<span>$" +
-      new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
+      new Intl.NumberFormat("en-US").format(data.inv_price) +
       "</span>";
     carSpecs += "</h2>";
+    
     carSpecs += "</section>";
   } else {
     carSpecs +=
