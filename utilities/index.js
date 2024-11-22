@@ -34,15 +34,15 @@ Util.buildClassificationGrid = async function (data) {
     data.forEach((vehicle) => {
       grid += "<li>";
       grid +=
-        '<a href"..//../inv/detail/' +
+        '<a href="../../inv/detail/' +
         vehicle.inv_id +
-        '"title="View ' +
+        '" title="View ' +
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
         'details"><img src="' +
         vehicle.inv_thumbnail +
-        '" alt="Image of' +
+        '" alt="Image of ' +
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
@@ -75,6 +75,37 @@ Util.buildClassificationGrid = async function (data) {
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
   return grid;
+};
+/* ************************
+ * Build the Car Specs view HTML
+ ************************** */
+Util.buildCarSpecs = async function (data) {
+  let carSpecs;
+  if (data.length > 0) {
+    carSpecs = '<section id="carSpec">';
+    carSpecs +=
+      '<img src="' +
+      data.inv_image +
+      '" alt = "Image of ' +
+      data.inv_make +
+      " " +
+      data.invModel +
+      ' on CSE Motors"/>';
+    carSpecs += '<div class="specs"> ';
+    carSpecs +=
+      "<h2>" + data.inv_make + " " + data.inv_model + " Details </h2>";
+    carSpecs += "<h2> Price: ";
+    carSpecs +=
+      "<span>$" +
+      new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
+      "</span>";
+    carSpecs += "</h2>";
+    carSpecs += "</section>";
+  } else {
+    carSpecs +=
+      '<p class="notice">Sorry,that vehicle info could not be found</p>';
+  }
+  return carSpecs;
 };
 
 /* ****************************************

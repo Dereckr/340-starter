@@ -1,0 +1,11 @@
+<!-- Content heading -->
+<% if (title){ %> <%#EJS Code Block to contain JS if structure if a title exists  %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    <!-- Message Block -->
+     <%# messages()  %>
+    
+    <!-- Inventory Items Display -->
+    <%-carSpecs%> <%# Contains HTML %>
