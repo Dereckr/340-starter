@@ -100,7 +100,13 @@ Util.buildCarSpecs = async function (data) {
       new Intl.NumberFormat("en-US").format(data.inv_price) +
       "</span>";
     carSpecs += "</h2>";
-    
+    carSpecs +=
+      "<p> <strong>Description: </strong>" + data.inv_description + "</p>";
+    carSpecs += "<p> <strong>Color: </strong> " + data.inv_color + "</p>";
+    carSpecs +=
+      "<p> <strong>Miles: </strong>" +
+      new Intl.NumberFormat("En-US").format(data.inv_miles) +
+      "</p>";
     carSpecs += "</section>";
   } else {
     carSpecs +=
