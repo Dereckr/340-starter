@@ -236,6 +236,14 @@ hr {
     margin: 0px;
   }
 
+  footer {
+    padding-left: 20px;
+  }
+
+  .errorMessage{
+    padding-left: 20px;
+  }
+
 
 
 }
