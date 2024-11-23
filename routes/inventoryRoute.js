@@ -8,5 +8,7 @@ const invController = require("../controllers/invController");
 router.get("/type/:classificationId", invController.buildByClassificationId);
 //route to build car specifications
 router.get("/detail/:carId", invController.buildByCar);
+//route for error
+router.get("/errorTrigger", invController.errorTrigger);
 
 module.exports = router;

@@ -39,4 +39,14 @@ invCont.buildByCar = async function (req, res, next) {
   });
 };
 
+invCont.errorTrigger = async function (req, res, next) {
+  const trigger = "Error trigger";
+  let nav = await utilities.getNav();
+  res.render("./inventory/errorTrigger", {
+    title: trigger,
+    trigger,
+    nav,
+  });
+};
+
 module.exports = invCont;
