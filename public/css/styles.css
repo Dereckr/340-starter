@@ -85,7 +85,7 @@ nav ul li {
 }
 
 
-h1{
+h1 {
   padding: 10px 0;
 }
 
@@ -124,9 +124,52 @@ h1{
   height: auto;
 }
 
-
 #reviews ul{
   padding-left: 20px;
+}
+
+#inv-display{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr) );
+}
+#inv-display li{
+  list-style: none;
+  display: inline;
+  width: 80%;
+  box-sizing: border-box;
+  justify-self: center;
+  justify-content: center;
+  padding: 10px;
+  border:2px solid black;
+  max-width: 300px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+#inv-display img{
+  width: 100%;
+  height: auto;
+}
+
+hr {
+  border: none;
+  height: 4px;
+  color: #333;  /*Old Browser */
+  background-color: #333;  /* Modern Browsers */
+}
+
+.namePrice span{
+  font-size: 1.3em;
+}
+
+#carSpec{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#carSpec img{
+  max-width: 95vw;
+  height: auto;
 }
 
 @media screen and (min-width: 700px) {
@@ -174,8 +217,25 @@ h1{
     border-radius: 10px;
   }
 
+  h1{
+    padding-left: 1em;
+  }
 
-  
+  #carSpec{
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 50 px;
+    padding: 1em;
+  }
+
+  .specs{
+    grid-column: 3/4;
+    padding-left: 10px;
+  }
+
+  #carSpec .specs h2{
+    margin: 0px;
+  }
+
 
 
 }
