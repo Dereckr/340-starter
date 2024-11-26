@@ -10,5 +10,10 @@ router.get(
   "/registration",
   utilities.handleErrors(accountController.buildRegister)
 );
+//post
+router.post(
+  "/register",
+  utilities.handleErrors(accountController.registerAccount)
+);
 
 module.exports = router;
