@@ -42,11 +42,10 @@ invCont.buildByCar = async function (req, res, next) {
 };
 
 invCont.errorTrigger = async function (req, res, next) {
-  const trigger = "Error trigger";
   let nav = await utilities.getNav();
+  throw new Error("Throw makes it go boom");
   res.render("./inventory/errorTrigger", {
-    title: trigger,
-    trigger,
+    title: "Error trigger",
     nav,
   });
 };

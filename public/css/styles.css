@@ -172,6 +172,11 @@ hr {
   height: auto;
 }
 
+.imgDiv img{
+  width: 100%;
+  height: auto;
+}
+
 @media screen and (min-width: 700px) {
 
   header{
@@ -228,9 +233,16 @@ hr {
   }
 
   .specs{
+    display: block;
     grid-column: 3/4;
     padding-left: 10px;
   }
+  .imgDiv{
+    display: block;
+    grid-column: 2/3;
+  }
+
+
 
   #carSpec .specs h2{
     margin: 0px;
@@ -243,6 +255,8 @@ hr {
   .errorMessage{
     padding-left: 20px;
   }
+
+
 
 
 

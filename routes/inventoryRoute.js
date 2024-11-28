@@ -11,7 +11,7 @@ router.get(
   utilities.handleErrors(invController.buildByClassificationId)
 );
 //route to build car specifications
-router.get("/detail/:carId", invController.buildByCar);
+router.get("/detail/:carId", utilities.handleErrors(invController.buildByCar));
 //route for error
 router.get("/errorTrigger", utilities.handleErrors(invController.errorTrigger));
 

@@ -46,7 +46,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
-        ' on CSE Motors" /></a>';
+        ' on CSE Motors" ></a>';
       grid += '<div class="namePrice">';
       grid += "<hr />";
       grid += "<h2>";
@@ -83,6 +83,7 @@ Util.buildCarSpecs = async function (data) {
   let carSpecs;
   if (data != undefined) {
     carSpecs = '<section id="carSpec">';
+    carSpecs += '<div class="imgDiv">';
     carSpecs +=
       '<img src="' +
       data.inv_image +
@@ -90,7 +91,8 @@ Util.buildCarSpecs = async function (data) {
       data.inv_make +
       " " +
       data.invModel +
-      ' on CSE Motors"/>';
+      ' on CSE Motors">';
+    carSpecs += "</div>";
     carSpecs += '<div class="specs"> ';
     carSpecs +=
       "<h2>" + data.inv_make + " " + data.inv_model + " Details </h2>";
@@ -107,6 +109,7 @@ Util.buildCarSpecs = async function (data) {
       "<p> <strong>Miles: </strong>" +
       new Intl.NumberFormat("En-US").format(data.inv_miles) +
       "</p>";
+    carSpecs += "</div> ";
     carSpecs += "</section>";
   } else {
     carSpecs +=
