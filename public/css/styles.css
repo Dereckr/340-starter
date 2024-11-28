@@ -223,7 +223,7 @@ hr {
 
   #carSpec{
     display: grid;
-    grid-template-columns: 50px 1fr 1fr 50 px;
+    grid-template-columns: 50px 1fr 1fr 50px;
     padding: 1em;
   }
 
