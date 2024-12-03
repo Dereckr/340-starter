@@ -1,0 +1,14 @@
+<!-- Content heading -->
+<% if (title){ %> <%#EJS Code Block to contain JS if structure if a title exists  %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    <!-- Message Block -->
+     <%- messages() %>
+
+    <!-- Login Display -->
+    <ul>
+        <li><a href="/inv/add-classification">Add new classification</a></li>
+        <li><a href="/inv/add-inventory">Add new inventory</a></li>
+    </ul>

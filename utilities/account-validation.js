@@ -135,4 +135,140 @@ validate.checkLogData = async (req, res, next) => {
   next();
 };
 
+/* ************************
+ * Add Classification Rules
+ ************************** */
+validate.addClassicationRules = () => {
+  return [
+    // valid email is required and cannot already exist in the DB
+    body("classification_name")
+      .trim()
+      .escape()
+      .notEmpty()
+      .matches(/^[a-zA-Z]+$/)
+      .withMessage("A valid Classification name is required."), //on error this message is sent
+  ];
+};
+
+validate.checkAddData = async (req, res, next) => {
+  const { classification_name } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/addClassification", {
+      errors,
+      title: "Vehicle Management",
+      nav,
+      classification_name,
+    });
+    return;
+  }
+  next();
+};
+
+/* ************************
+ * Add Inventory Rules
+ ************************** */
+validate.addInventoryRules = () => {
+  return [
+    body("classification_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please select a classification name."), //on error this message is sent
+
+    body("inv_make")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 3 })
+      .withMessage(
+        "A valid make is required. Please input at least 3 characters."
+      ), //on error this message is sent
+
+    body("inv_model")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 3 })
+      .withMessage(
+        "A valid model is required. Please input at least 3 characters."
+      ), //on error this message is sent
+
+    body("inv_description")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("A description is required."), //on error this message is sent
+
+    body("inv_price")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("A valid price is required."), //on error this message is sent
+
+    body("inv_year")
+      .trim()
+      .escape()
+      .notEmpty()
+      .matches(/^\d{4}$/)
+      .withMessage("A valid year is required."),
+
+    body("inv_miles")
+      .trim()
+      .escape()
+      .notEmpty()
+      .matches(/^[0-9]+$/)
+      .withMessage("A valid mileage is required."),
+
+    body("inv_color")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage("A color is required."),
+  ];
+};
+
+validate.checkAddInventory = async (req, res, next) => {
+  const {
+    classification_name,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+  } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList();
+    res.render("inventory/addInventory", {
+      errors,
+      title: "Add a New Car",
+      nav,
+      classificationList,
+      classification_name,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+    });
+    return;
+  }
+  next();
+};
+
 module.exports = validate;
