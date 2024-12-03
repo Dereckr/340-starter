@@ -28,17 +28,17 @@
             <label for="inv_model">Model</label>
             <input type="text" id="inv_model" name="inv_model" minlength="3" placeholder="Min of 3 characters" required value="<%= locals.inv_model %>"><br>
             <label for="inv_description">Description</label><br>
-            <textarea id="inv_description" name="inv_description" rows="10" col="50" required ><%= locals.inv_description %></textarea><br>
+            <textarea id="inv_description" name="inv_description" rows="10" cols="50" required ><%= locals.inv_description %></textarea><br>
             <label for="inv_image">Image Path</label>
-            <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required value="<%= locals.inv_make %>"><br>
+            <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required><br>
             <label for="inv_thumbnail">Thumbnail</label>
             <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png" required ><br>
             <label for="inv_price">Price</label>
-            <input type="number" id="inv_price" name="inv_price" placeholder="decimal or integer"  required value="<%= locals.inv_price %>"><br>
+            <input type="number" id="inv_price" name="inv_price" step=".01" placeholder="decimal or integer"  required value="<%= locals.inv_price %>"><br>
             <label for="inv_year">Year</label>
-            <input type="number" id="inv_year" name="inv_year" placeholder="4-digit year" required pattern="/^\d{4}$/" value="<%= locals.inv_year %>"><br>
+            <input type="text" id="inv_year" name="inv_year" placeholder="4-digit year" pattern="\d{4}" required  value="<%= locals.inv_year %>"><br>
             <label for="inv_miles">Miles</label>
-            <input type="number" id="inv_miles" name="inv_miles" placeholder="digits only"  required pattern="/^[0-9]+$/" value="<%= locals.inv_miles %>"><br>
+            <input type="text" id="inv_miles" name="inv_miles" placeholder="digits only"  pattern="[0-9]+" required  value="<%= locals.inv_miles %>"><br>
             <label for="inv_color">Color</label>
             <input type="text" id="inv_color" name="inv_color"  required  value="<%= locals.inv_color %>"><br>
             <input type="submit" value="Add Vehicle">

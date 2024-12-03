@@ -177,6 +177,36 @@ hr {
   height: auto;
 }
 
+form label{
+  display: block;
+  padding-top: 1rem;
+}
+
+form input{
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+  border-radius: 5px;
+  padding: .75rem;
+}
+
+form input:required:invalid {
+  border-right: red solid 10px;
+}
+
+form input:required:valid{
+  border-right: green solid 10px;
+}
+
+form fieldset{
+  margin: 2rem 0;
+  border-radius: 5px;
+  padding: .5rem 2%;
+}
+
+
+
 @media screen and (min-width: 700px) {
 
   header{
