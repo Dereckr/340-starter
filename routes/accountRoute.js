@@ -32,6 +32,10 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 );
 
-router.get("/", utilities.handleErrors(accountController.buildAccountLogin));
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccountLogin)
+);
 
 module.exports = router;
