@@ -1,0 +1,50 @@
+<!-- Content heading -->
+<% if (title){ %> <%#EJS Code Block to contain JS if structure if a title exists  %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    <!-- Message Block -->
+     <%- messages()  %>
+
+     <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+
+
+    
+    <!-- Form Display -->
+
+    <form action="/inv/update" method="post" id="updateForm">
+        <fieldset>
+            <label for="classificationList">Classification</label>
+            <%- classificationList %> <br> <%# Contains HTML %>
+            <label for="inv_make">Make</label>
+            <input type="text" id="inv_make" name="inv_make" minlength="3" placeholder="Min of 3 characters" required value="<%= locals.inv_make %>"><br>
+            <label for="inv_model">Model</label>
+            <input type="text" id="inv_model" name="inv_model" minlength="3" placeholder="Min of 3 characters" required value="<%= locals.inv_model %>"><br>
+            <label for="inv_description">Description</label><br>
+            <textarea id="inv_description" name="inv_description" rows="10" cols="50" required ><%= locals.inv_description %></textarea><br>
+            <label for="inv_image">Image Path</label>
+            <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required><br>
+            <label for="inv_thumbnail">Thumbnail</label>
+            <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image.png" required ><br>
+            <label for="inv_price">Price</label>
+            <input type="number" id="inv_price" name="inv_price" step=".01" placeholder="decimal or integer"  required value="<%= locals.inv_price %>"><br>
+            <label for="inv_year">Year</label>
+            <input type="text" id="inv_year" name="inv_year" placeholder="4-digit year" pattern="\d{4}" required  value="<%= locals.inv_year %>"><br>
+            <label for="inv_miles">Miles</label>
+            <input type="text" id="inv_miles" name="inv_miles" placeholder="digits only"  pattern="[0-9]+" required  value="<%= locals.inv_miles %>"><br>
+            <label for="inv_color">Color</label>
+            <input type="text" id="inv_color" name="inv_color"  required  value="<%= locals.inv_color %>"><br>
+            <input type="submit" name="submit" value="Update Vehicle" id="updateButton" disabled>
+            <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+        </fieldset>
+    </form> <%# Contains HTML %>
+    <script src="/js/script.js"></script>
+    <script src="/js/inv-update.js"></script>

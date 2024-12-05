@@ -271,4 +271,46 @@ validate.checkAddInventory = async (req, res, next) => {
   next();
 };
 
+// checkUpdate Data errors directed to edit view
+validate.checkUpdateInventory = async (req, res, next) => {
+  const {
+    classification_name,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    inv_id,
+  } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList();
+    res.render("inventory/edit-inventory", {
+      errors,
+      title: "Edit" + inv_make + " " + inv_model,
+      nav,
+      classificationList,
+      classification_name,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      inv_id,
+    });
+    return;
+  }
+  next();
+};
+
 module.exports = validate;

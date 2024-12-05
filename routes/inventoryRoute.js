@@ -42,4 +42,30 @@ router.post(
   regValidate.checkAddInventory,
   utilities.handleErrors(invController.addInventory)
 );
+
+// Get Inventory for AJAX Route, Unit 5
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
+
+router.get(
+  "/edit/:inv_id",
+
+  utilities.handleErrors(invController.editInventory)
+);
+// update router post
+router.post(
+  "/update/",
+  regValidate.addInventoryRules(),
+  regValidate.checkUpdateInventory,
+  utilities.handleErrors(invController.updateInventory)
+);
+
+router.get(
+  "/delete/:inv_id",
+  utilities.handleErrors(invController.buildDeleteConfirmationView)
+);
+
+router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
 module.exports = router;

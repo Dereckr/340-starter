@@ -1,0 +1,39 @@
+<!-- Content heading -->
+<% if (title){ %> <%#EJS Code Block to contain JS if structure if a title exists  %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    <!-- Message Block -->
+     <%- messages()  %>
+
+     <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+
+
+    
+    <!-- Form Display -->
+
+    <form action="/inv/delete" method="post" id="deleteForm">
+        <fieldset>
+            <p>Confirm Deletion - The delete is permanent.</p>
+            <label for="inv_make">Make</label>
+            <input type="text" id="inv_make" name="inv_make" minlength="3" placeholder="Min of 3 characters" required readonly value="<%= locals.inv_make %>"><br>
+            <label for="inv_model">Model</label>
+            <input type="text" id="inv_model" name="inv_model" minlength="3" placeholder="Min of 3 characters" required readonly value="<%= locals.inv_model %>"><br>
+            <label for="inv_price">Price</label>
+            <input type="number" id="inv_price" name="inv_price" step=".01" placeholder="decimal or integer"  required readonly value="<%= locals.inv_price %>"><br>
+            <label for="inv_year">Year</label>
+            <input type="text" id="inv_year" name="inv_year" placeholder="4-digit year" pattern="\d{4}" required readonly value="<%= locals.inv_year %>"><br>
+            <input type="submit" name="submit" value="Delete Vehicle" id="deleteButton" >
+            <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+        </fieldset>
+    </form> <%# Contains HTML %>
+    <script src="/js/script.js"></script>
+    
