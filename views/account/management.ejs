@@ -16,4 +16,6 @@
       <% } %>
 
     <!-- Login Display -->
-    <h2>You're logged in</h2>
+
+    <h2> Welcome Happy  <%= accountData.account_firstname %></h2>
+    <h3  <% if(accountData.account_type === "Client") { %> hidden <% }%>>Inventory Management</h3>
