@@ -16,10 +16,15 @@ router.get("/detail/:carId", utilities.handleErrors(invController.buildByCar));
 //route for error
 router.get("/errorTrigger", utilities.handleErrors(invController.errorTrigger));
 // Vehicle management
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get(
+  "/",
+  utilities.checkAccessLevel,
+  utilities.handleErrors(invController.buildManagement)
+);
 
 router.get(
   "/add-classification",
+  utilities.checkAccessLevel,
   utilities.handleErrors(invController.buildAddClassification)
 );
 
@@ -33,6 +38,7 @@ router.post(
 // add inventory
 router.get(
   "/add-inventory",
+  utilities.checkAccessLevel,
   utilities.handleErrors(invController.buildAddInventory)
 );
 
@@ -49,9 +55,10 @@ router.get(
   utilities.handleErrors(invController.getInventoryJSON)
 );
 
+// route
 router.get(
   "/edit/:inv_id",
-
+  utilities.checkAccessLevel,
   utilities.handleErrors(invController.editInventory)
 );
 // update router post
@@ -64,6 +71,7 @@ router.post(
 
 router.get(
   "/delete/:inv_id",
+  utilities.checkAccessLevel,
   utilities.handleErrors(invController.buildDeleteConfirmationView)
 );
 

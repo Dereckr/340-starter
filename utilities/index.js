@@ -187,4 +187,50 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
+/* ****************************************
+ *  Check Account Level
+ * ************************************ */
+Util.checkAccountLevel = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        if (accountData.account_type === "Client") {
+          res.locals.accountData = accountData;
+          res.locals.accessLevel = 1;
+        }
+        if (accountData.account_type === "Employee") {
+          res.locals.accountData = accountData;
+          res.locals.accessLevel = 2;
+        }
+        if (accountData.account_type === "Admin") {
+          res.locals.accountData = accountData;
+          res.locals.accessLevel = 3;
+        }
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Level
+ * ************************************ */
+Util.checkAccessLevel = (req, res, next) => {
+  if (res.locals.accessLevel > 1) {
+    next();
+  } else {
+    req.flash("notice", "Unauthorized");
+    return res.redirect("/account/login");
+  }
+};
+
 module.exports = Util;

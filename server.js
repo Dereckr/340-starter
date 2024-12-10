@@ -46,6 +46,7 @@ app.use(function (req, res, next) {
 app.use(cookieParser());
 // JWT Token
 app.use(utilities.checkJWTToken);
+app.use(utilities.checkAccountLevel);
 
 /* ***********************
  * View Engine and Templates
@@ -62,7 +63,7 @@ app.use(static);
 app.get("/", utilities.handleErrors(baseController.buildHome));
 //Inventory routes
 app.use("/inv", inventoryRoute);
-//Accoubt route
+//Account route
 app.use("/account", accountRoute);
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

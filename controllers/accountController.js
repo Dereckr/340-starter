@@ -145,4 +145,18 @@ async function buildAccountLogin(req, res, next) {
   });
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountLogin };
+// LOGOUT
+
+async function logout(req, res, next) {
+  res.clearCookie("jwt");
+  res.redirect("/");
+}
+
+module.exports = {
+  buildLogin,
+  buildRegister,
+  registerAccount,
+  accountLogin,
+  buildAccountLogin,
+  logout,
+};
