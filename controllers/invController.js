@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities/");
+const accountModel = require("../models/account-model");
 
 const invCont = {};
 
@@ -28,7 +29,6 @@ invCont.buildByCar = async function (req, res, next) {
   const car_id = req.params.carId;
   const data = await invModel.getCarById(car_id);
   const carSpecs = await utilities.buildCarSpecs(data);
-  console.log(carSpecs);
   let nav = await utilities.getNav();
   const carYear = data.inv_year;
   const carMake = data.inv_make;
@@ -317,6 +317,45 @@ invCont.deleteInventory = async function (req, res, next) {
       inv_model,
       inv_year,
       inv_price,
+    });
+  }
+};
+
+/* ************************
+ * Post Review
+ ************************** */
+invCont.review = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id);
+  const account_id = res.locals.accountData.account_id;
+  const { review_text } = req.body;
+  console.log(inv_id);
+
+  const addReview = await invModel.addReview(review_text, inv_id, account_id);
+  console.log(addReview);
+  const data = await invModel.getCarById(addReview.inv_id);
+  const carSpecs = await utilities.buildCarSpecs(data);
+  const addNewReview = await utilities.addNewReview(data);
+
+  let nav = await utilities.getNav();
+  const carYear = data.inv_year;
+  const carMake = data.inv_make;
+  const carModel = data.inv_model;
+
+  if (addReview) {
+    req.flash("notice", `Congratulations, your review was added.`);
+    res.status(201).render("inventory/carSpecs", {
+      title: carYear + " " + carMake + " " + carModel,
+      nav,
+      carSpecs,
+      addNewReview,
+      errors: null,
+    });
+  } else {
+    req.flash("notice", "Sorry, the registration failed.");
+    res.status(501).redirect("/inv/carSpecs", {
+      title: "Failed",
+      nav,
+      errors: null,
     });
   }
 };

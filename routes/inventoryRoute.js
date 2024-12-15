@@ -76,4 +76,8 @@ router.get(
 );
 
 router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
+
+// router review post
+router.post("/carSpecsReview", utilities.handleErrors(invController.review));
+
 module.exports = router;
