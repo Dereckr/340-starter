@@ -147,6 +147,9 @@ async function deleteInventory(inv_id) {
  *  Add review
  * ************************** */
 async function addReview(review_text, inv_id, account_id) {
+  console.log(review_text);
+  console.log(inv_id);
+  console.log(account_id);
   try {
     const sql =
       "INSERT INTO review ( review_text, inv_id, account_id) VALUES ($1, $2, $3) RETURNING *";

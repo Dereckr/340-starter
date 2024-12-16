@@ -326,8 +326,10 @@ invCont.deleteInventory = async function (req, res, next) {
  ************************** */
 invCont.review = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id);
-  const account_id = res.locals.accountData.account_id;
+  const account_id = parseInt(res.locals.accountData.account_id);
   const { review_text } = req.body;
+  console.log(account_id);
+  console.log(review_text);
   console.log(inv_id);
 
   const addReview = await invModel.addReview(review_text, inv_id, account_id);
