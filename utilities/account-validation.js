@@ -414,4 +414,32 @@ validate.checkPassword = async (req, res, next) => {
   next();
 };
 
+/* ************************
+ * Add Inventory Rules
+ ************************** */
+validate.addReviewRules = () => {
+  return [
+    body("inv_description")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("A description is required."), //on error this message is sent
+  ];
+};
+
+validate.checkReview = async (req, res, next) => {
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/carSpecs", {
+      errors,
+      title: "New Review",
+      nav,
+    });
+    return;
+  }
+  next();
+};
+
 module.exports = validate;
