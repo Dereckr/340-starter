@@ -81,8 +81,14 @@ router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
 router.post(
   "/carSpecsReview",
   regValidate.addReviewRules(),
-  regValidate.checkReview,
   utilities.handleErrors(invController.review)
+);
+
+// edit review
+// route
+router.get(
+  "/editReview/:review_id",
+  utilities.handleErrors(invController.editReview)
 );
 
 module.exports = router;

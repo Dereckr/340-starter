@@ -325,7 +325,7 @@ invCont.deleteInventory = async function (req, res, next) {
  * Post Review
  ************************** */
 invCont.review = async function (req, res, next) {
-  const inv_id = parseInt(req.params.inv_id);
+  const inv_id = parseInt(req.body.inv_id);
   const account_id = parseInt(res.locals.accountData.account_id);
   const { review_text } = req.body;
   console.log(account_id);
@@ -333,8 +333,7 @@ invCont.review = async function (req, res, next) {
   console.log(inv_id);
 
   const addReview = await invModel.addReview(review_text, inv_id, account_id);
-  console.log(addReview);
-  const data = await invModel.getCarById(addReview.inv_id);
+  const data = await invModel.getCarById(inv_id);
   const carSpecs = await utilities.buildCarSpecs(data);
   const addNewReview = await utilities.addNewReview(data);
 
@@ -360,6 +359,21 @@ invCont.review = async function (req, res, next) {
       errors: null,
     });
   }
+};
+
+invCont.editReview = async function (req, res, next) {
+  const review_id = parseInt(req.params.inv_id);
+  let nav = await utilities.getNav();
+  const itemData = await invModel.getReviewById(review_id);
+  res.render("inventory/edit-review", {
+    title: "Edit Review",
+    nav,
+    errors: null,
+    review_id: itemData.inv_id,
+    review_text: itemData.review_text,
+    inv_id: itemData.inv_id,
+    account_id: itemData.account_id,
+  });
 };
 
 module.exports = invCont;

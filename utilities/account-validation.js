@@ -427,19 +427,4 @@ validate.addReviewRules = () => {
   ];
 };
 
-validate.checkReview = async (req, res, next) => {
-  let errors = [];
-  errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    let nav = await utilities.getNav();
-    res.render("inventory/carSpecs", {
-      errors,
-      title: "New Review",
-      nav,
-    });
-    return;
-  }
-  next();
-};
-
 module.exports = validate;
