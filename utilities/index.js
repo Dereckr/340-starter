@@ -121,7 +121,7 @@ Util.buildCarSpecs = async function (data, accountData) {
       '<form id="addReview" action="/inv/carSpecsReview/' +
       data.inv_id +
       '" method="post">';
-    carSpecs += '<label for="username">Client Name</label>';
+
     carSpecs +=
       '<input="hidden" name="account_id" value="' +
       accountData.account_id +
