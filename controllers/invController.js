@@ -28,7 +28,11 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByCar = async function (req, res, next) {
   const car_id = req.params.carId;
   const data = await invModel.getCarById(car_id);
-  const carSpecs = await utilities.buildCarSpecs(data);
+  const accountData = parseInt(res.locals.accountData);
+
+  const carSpecs = await utilities.buildCarSpecs(data, accountData);
+  const reviewData = await invModel.getReviewByInvId(car_id);
+  const reviews = await utilities.buildReviewList(reviewData);
   let nav = await utilities.getNav();
   const carYear = data.inv_year;
   const carMake = data.inv_make;
@@ -37,6 +41,7 @@ invCont.buildByCar = async function (req, res, next) {
     title: carYear + " " + carMake + " " + carModel,
     nav,
     carSpecs,
+    reviews,
     errors: null,
   });
 };
@@ -325,16 +330,22 @@ invCont.deleteInventory = async function (req, res, next) {
  * Post Review
  ************************** */
 invCont.review = async function (req, res, next) {
-  const inv_id = parseInt(req.body.inv_id);
+  // const inv_id = parseInt(req.params.inv_id);
   const account_id = parseInt(res.locals.accountData.account_id);
   const { review_text } = req.body;
+  const inv_id = req.params.carId;
+
   console.log(account_id);
   console.log(review_text);
   console.log(inv_id);
 
-  const addReview = await invModel.addReview(review_text, inv_id, account_id);
   const data = await invModel.getCarById(inv_id);
-  const carSpecs = await utilities.buildCarSpecs(data);
+  const addReview = await invModel.addReview(
+    review_text,
+    data.inv_id,
+    account_id
+  );
+  const carSpecs = await utilities.buildCarSpecs(data, account_id);
   const addNewReview = await utilities.addNewReview(data);
 
   let nav = await utilities.getNav();
@@ -376,4 +387,72 @@ invCont.editReview = async function (req, res, next) {
   });
 };
 
+invCont.updateReview = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const { review_id, review_text, inv_id, account_id } = req.body;
+  const updateResult = await invModel.updateReview(
+    review_id,
+    review_text,
+    inv_id,
+    account_id
+  );
+
+  if (updateResult) {
+    req.flash("notice", `The review was successfully updated.`);
+    res.redirect("/");
+  } else {
+    req.flash("notice", "Sorry, the insert failed.");
+    res.status(501).render("inventory/edit-review", {
+      title: "Edit Review",
+      nav,
+      errors: null,
+      review_id,
+      review_text,
+      inv_id,
+      account_id,
+    });
+  }
+};
+
+/* ***************************
+ *  Build delete Review view
+ * ************************** */
+invCont.buildDeleteReviewView = async function (req, res, next) {
+  const review_id = parseInt(req.params.review_id);
+  let nav = await utilities.getNav();
+  const itemData = await invModel.getReviewById(review_id);
+  // let classificationList = await utilities.buildClassificationList(
+  //   itemData.classification_id
+  // );
+  res.render("inventory/deleteReview-confirm", {
+    title: "Delete Review",
+    nav,
+    errors: null,
+    review_id: itemData.review_id,
+    review_text: itemData.review_text,
+    inv_id: itemData.inv_id,
+    acoount_id: itemData.account_id,
+  });
+};
+
+invCont.deleteReview = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const review_id = parseInt(req.body.review_id);
+  const { review_text } = req.body;
+  const deleteResult = await invModel.deleteReview(review_id);
+
+  if (deleteResult) {
+    req.flash("notice", `The Review was successfully updated.`);
+    res.redirect("/inv/");
+  } else {
+    req.flash("notice", "Sorry, the insert failed.");
+    res.status(501).redirect(`inv/deleteReview/${review_id}`, {
+      title: "Delete Review",
+      nav,
+      errors: null,
+      review_id,
+      review_text,
+    });
+  }
+};
 module.exports = invCont;

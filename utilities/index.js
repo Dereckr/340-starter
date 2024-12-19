@@ -81,8 +81,10 @@ Util.buildClassificationGrid = async function (data) {
 /* ************************
  * Build the Car Specs view HTML
  ************************** */
-Util.buildCarSpecs = async function (data) {
+Util.buildCarSpecs = async function (data, accountData) {
   let carSpecs;
+  // const validation = locals.accessLevel;
+  // console.log(validation);
   if (data != undefined) {
     carSpecs = '<section id="carSpec">';
     carSpecs += '<div class="imgDiv">';
@@ -113,6 +115,49 @@ Util.buildCarSpecs = async function (data) {
       "</p>";
     carSpecs += "</div> ";
     carSpecs += "</section>";
+    carSpecs += "<div>";
+
+    carSpecs +=
+      '<form id="addReview" action="/inv/carSpecsReview/' +
+      data.inv_id +
+      '" method="post">';
+    carSpecs += '<label for="username">Client Name</label>';
+    carSpecs +=
+      '<input="hidden" name="account_id" value="' +
+      accountData.account_id +
+      '" pattern="[0-9]"/>';
+    carSpecs +=
+      '<input="hidden" name="inv_id" value="' +
+      data.inv_id +
+      '" pattern="[0-9]"/>';
+    carSpecs += '<label for="username">Client Name</label>';
+    carSpecs +=
+      '<input type="text" id="username" name="username" pattern="[a-zA-Z]+" required value="' +
+      accountData.account_firstname +
+      '" ><br>';
+    ('<textarea id="review_text" name="review_text" rows="10" cols="50" required ></textarea>');
+    carSpecs += '<input id="submit" type="submit" value="Submit Review">';
+
+    carSpecs += "</form>";
+
+    carSpecs += "</div>";
+
+    // carSpecs += '<div class="review"></div>'
+    // carSpecs += '<h3  <% if(locals.accessLevel === 1) { %> hidden <% }%>>You must <a href="../../account/login">login</a> to write a review</h3>'
+    // carSpecs += '<% if(locals.accessLevel === 1) { %>'
+    // carSpecs += '<form method="post" action="/inv/carSpecsReview/' + data.inv_id
+    // +'"></form>'
+    // carSpecs += 'label for="username">Client Name</label>'
+    // carSpecs += '<input type="text" id="username" name="username" pattern="[a-zA-Z]+" required value="<%- locals.accountData.account_firstname %>" ><br>'
+    // carSpecs += '<label for="review_text">Description</label><br>'
+    // carSpecs += '<textarea id="review_text" name="review_text" rows="10" cols="50" required ><%= locals.review_text %></textarea><br>'
+    // carSpecs += '<input type="submit" value="Submit Review"></input>'
+    // carSpecs += '<input type="hidden" name="inv_id"'
+    // carSpecs +='<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>'
+    // carSpecs += '<input type="hidden" name="account_id"'
+    // carSpecs += '<% if(locals.account_id) { %> value="<%= locals.account_id %>"<% } %>>'
+    // carSpecs += ' </div>'
+    // carSpecs += '<% }%></br>'
   } else {
     carSpecs +=
       '<p class="notice">Sorry,that vehicle info could not be found</p>';
@@ -269,9 +314,10 @@ Util.addNewReview = async function (data) {
 // REVIEW
 
 Util.buildReviewList = async function (data) {
-  let reviewDisplay = document.getElementById("reviewDisplay");
+  // let reviewDisplay = document.getElementById("reviewDisplay");
   // Set up the table labels
-  let dataTable = "<thead>";
+  let dataTable = "<table>";
+  dataTable += "<thead>";
   dataTable += "<tr><th>My Reviews</th><td>&nbsp;</td><td>&nbsp;</td></tr>";
   dataTable += "</thead>";
   // Set up the table body
@@ -279,13 +325,15 @@ Util.buildReviewList = async function (data) {
   // Iterate over all vehicles in the array and put each in a row
   data.forEach(function (element) {
     console.log(element.inv_id + ", " + element.inv_model);
-    dataTable += `<tr><td>Reviewed the ${element.inv_make} ${element.inv_model} on ${element.review_date}</td>`;
+    dataTable += `<tr><td>${element.review_text}</td>`;
+    dataTable += `<td>Reviewed  on ${element.review_date}</td>`;
     dataTable += `<td><a href='/inv/editReview/${element.review_id}' title='Click to update'>Modify</a></td>`;
     dataTable += `<td><a href='/inv/deleteReview/${element.review_id}' title='Click to delete'>Delete</a></td></tr>`;
   });
   dataTable += "</tbody>";
+  dataTable += "</table>";
   // Display the contents in the Inventory Management view
-  reviewDisplay.innerHTML = dataTable;
+  return dataTable;
 };
 
 module.exports = Util;

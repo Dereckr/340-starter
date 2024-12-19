@@ -1,0 +1,37 @@
+<!-- Content heading -->
+<% if (title){ %> <%#EJS Code Block to contain JS if structure if a title exists  %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    <!-- Message Block -->
+     <%- messages()  %>
+
+     <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+
+
+    
+    <!-- Form Display -->
+
+    <form action="/inv/deleteReview" method="post" id="deleteReviewForm">
+        <fieldset>
+            <p>Confirm Deletion - The delete is permanent.</p>
+            <label for="username">Client Name</label>
+            <input type="text" id="username" name="username" pattern="[a-zA-Z]+" required value="<%- locals.accountData.account_firstname %>" ><br>
+            <label for="review_text">Description</label><br>
+            <textarea id="review_text" name="review_text" rows="10" cols="50" required ><%= locals.review_text %></textarea><br>
+            <input type="submit" value="Delete Review">
+            <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %>>
+            <input type="hidden" name="account_id"
+            <% if(locals.account_id) { %> value="<%= locals.account_id %>"<% } %>>
+        </fieldset>
+    </form> <%# Contains HTML %>
+    <script src="/js/script.js"></script>
+    

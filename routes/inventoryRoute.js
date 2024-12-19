@@ -79,7 +79,7 @@ router.post("/delete/", utilities.handleErrors(invController.deleteInventory));
 
 // router review post
 router.post(
-  "/carSpecsReview",
+  "/carSpecsReview/:carId",
   regValidate.addReviewRules(),
   utilities.handleErrors(invController.review)
 );
@@ -89,6 +89,22 @@ router.post(
 router.get(
   "/editReview/:review_id",
   utilities.handleErrors(invController.editReview)
+);
+
+router.post(
+  "/updateReview/",
+  utilities.handleErrors(invController.updateReview)
+);
+
+//delete review
+router.get(
+  "/deleteReview/:review_id",
+  utilities.handleErrors(invController.buildDeleteReviewView)
+);
+
+router.post(
+  "/deleteReview/",
+  utilities.handleErrors(invController.deleteReview)
 );
 
 module.exports = router;

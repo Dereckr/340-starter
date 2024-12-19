@@ -272,6 +272,10 @@ form fieldset{
     grid-column: 2/3;
   }
 
+  .review{
+    grid-column: 2/3; 
+  }
+
 
 
   #carSpec .specs h2{
